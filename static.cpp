@@ -25,13 +25,14 @@ typedef struct Node
 	struct Node *next;
 }node;
 
+//tao LinkedList
 typedef struct LinkedList
 {
 	Node *head;
 	Node *tail;
 }LL;
 
-
+//tao ra 1 node
 Node* CreateNode(N data)
 {
 	Node *newNode = new Node();
