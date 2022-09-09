@@ -43,15 +43,7 @@ Node* CreateNode(N data)
 
 bool IsEmpty(LinkedList lst)
 {
-	if(lst.head==NULL && lst.tail==NULL)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	
+	return (lst.head==NULL && lst.tail==NULL);
 }
 
 void CreateList(LinkedList &lst)
@@ -60,11 +52,71 @@ void CreateList(LinkedList &lst)
 	lst.tail = NULL;
 }
 
+
+void XoaNodeDau(LinkedList &lst)
+{
+	Node *newNode;
+	if(IsEmpty(lst))
+	{
+		printf("\nList Rong !!!");
+	}
+	else{
+		newNode = lst.head;
+		lst.head = lst.head->next;
+		delete newNode;
+	}
+
+}
+
+void XoaSauNode(Node *p)
+{
+	Node *newNode;
+	if(p==NULL || p->next ==NULL)
+	{
+		printf("\nKhong the xoa ");
+	}
+	else
+	{
+		newNode = p->next;
+		p->next = newNode->next;
+		delete newNode;
+	}	
+}
+
+
+void XoaGiaPha(LinkedList &lst)
+{
+	Node *newNode;
+	while(lst.head!=NULL)
+	{
+		newNode = lst.head;
+		lst.head = lst.head->next;
+		delete newNode;
+	}
+}
+
+void SapXepTheoTheHe(LinkedList &lst)
+{
+	Node *newNode1,*newNode2;
+	for(newNode1 = lst.head;newNode1->next!=NULL;newNode1=newNode1->next)
+	{
+		for(newNode2 = newNode1->next; newNode2!=NULL; newNode2 = newNode2->next)
+		{
+			if(newNode1->data.thehe > newNode2->data.thehe)
+			{
+				N temp = newNode1->data;
+				newNode1->data = newNode2->data;
+				newNode2->data = temp;
+			}
+		}
+	}
+}
+
 void XuatGiaPha(LinkedList lst)
 {
 	if(IsEmpty(lst)==true)
 	{
-		return;
+		printf("\nGia Pha Khong Co Ai !!");
 	}
 	else
 	{
@@ -190,6 +242,32 @@ void XuatConChauTH(LinkedList &lst,int t)
 			newNode = newNode->next;
 		}	
 	}
+}
+
+int VitriCuaNguoi(LinkedList lst,Node *NodeTim)
+{
+	Node *newNode= lst.head;
+	int vt=0;
+	while(newNode !=NodeTim && newNode!=NULL)
+	{
+		newNode = newNode->next;
+		vt++;
+	}
+	if(newNode==NULL)	return -1;
+	return vt;
+
+}
+
+Node* TraNguoiOViTri(LinkedList lst,int i)
+{
+	Node *newNode = lst.head;
+	int vt=0;
+	while(newNode!=NULL && vt<i)
+	{
+		newNode= newNode->next;
+		vt++;
+	}
+	return newNode;
 }
 
 int main()
