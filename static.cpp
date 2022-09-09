@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h> // lay compare
-
+//nsjvsh
 typedef struct NgayThangNam
 {
 	int ngay;
