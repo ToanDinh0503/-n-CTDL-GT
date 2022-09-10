@@ -295,5 +295,5 @@ int main()
 		XuatConChauTH(lst,th);
 	}
 	
-	
+	SapXepTheoTheHe(lst);
 }
