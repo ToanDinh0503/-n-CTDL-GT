@@ -160,6 +160,19 @@ void InsertNodeFirst(LinkedList &lst,Nguoi &x)
 	}	
 }
 
+
+void InsertNodeLast(LinkedList &lst, Nguoi &x)
+{
+	Node *newNode = CreateNode(x);
+	if(IsEmpty(lst))
+	{
+		lst.head = newNode;
+		lst.tail = newNode;
+	}else{
+		lst.tail->next = newNode;
+		lst.tail = newNode;
+	}
+}
 void Nhap1nguoi(N &a)
 {	
         printf("\nNhap the he: \n");
@@ -278,22 +291,26 @@ int main()
 	int soluong = count(lst);
 	printf("\nSo luong nguoi trong List: %d",soluong);
 	XuatGiaPha(lst);
-	char x[40];
-	printf("\nNhap vao ten 1 nguoi: ");
-	fflush(stdin);
-	gets(x);
-	int namsinh;
-	printf("\nNhap nam sinh: ");
-	scanf("%d",&namsinh);
-	int th;
-	printf("\nNhap vao the he: ");
-	scanf("%d",&th);
-	if(Kiemtra(lst,namsinh,x) == -1)
-		printf("\nKhong co nguoi ay trong gia pha !");
-	else
-	{
-		XuatConChauTH(lst,th);
-	}
-	
+	// char x[40];
+	// printf("\nNhap vao ten 1 nguoi: ");
+	// fflush(stdin);
+	// gets(x);
+	// int namsinh;
+	// printf("\nNhap nam sinh: ");
+	// scanf("%d",&namsinh);
+	// int th;
+	// printf("\nNhap vao the he: ");
+	// scanf("%d",&th);
+	// if(Kiemtra(lst,namsinh,x) == -1)
+	// 	printf("\nKhong co nguoi ay trong gia pha !");
+	// else
+	// {
+	// 	XuatConChauTH(lst,th);
+	// }
+
+	N nguoicuoi;	
+	Nhap1nguoi(nguoicuoi);
+	InsertNodeLast(lst,nguoicuoi);
+	XuatGiaPha(lst);
 	SapXepTheoTheHe(lst);
 }
