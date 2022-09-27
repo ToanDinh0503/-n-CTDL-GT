@@ -1,13 +1,13 @@
 #include<stdio.h>
 #include<string.h> // lay compare
-//nsjvsh
+//tao struct ngaythangnam
 typedef struct NgayThangNam
 {
 	int ngay;
 	int thang;
 	int nam;
 }Date;
-
+//tao struct nguoi
 typedef struct Nguoi
 {
 	int thehe;
@@ -19,6 +19,7 @@ typedef struct Nguoi
 	int socon;
 }N;
 
+//tao node
 typedef struct Node
 {
 	Nguoi data;
@@ -41,11 +42,13 @@ Node* CreateNode(N data)
 	return newNode;
 }
 
+//kiem tra rong
 bool IsEmpty(LinkedList lst)
 {
 	return (lst.head==NULL && lst.tail==NULL);
 }
 
+//tao list
 void CreateList(LinkedList &lst)
 {
 	lst.head = NULL;
@@ -133,7 +136,7 @@ void XuatGiaPha(LinkedList lst)
 	
 }
 
-
+//dem so nguoi trong gia pha
 int count(LinkedList lst)
 {
 	int dem =0;
@@ -145,6 +148,7 @@ int count(LinkedList lst)
 	return dem;
 }
 
+// them nguoi vao dau gia pha
 void InsertNodeFirst(LinkedList &lst,Nguoi &x)
 {
 	Node *newNode = CreateNode(x);
@@ -160,7 +164,7 @@ void InsertNodeFirst(LinkedList &lst,Nguoi &x)
 	}	
 }
 
-
+//them nguoi vao cuoi gia pha
 void InsertNodeLast(LinkedList &lst, Nguoi &x)
 {
 	Node *newNode = CreateNode(x);
@@ -173,6 +177,7 @@ void InsertNodeLast(LinkedList &lst, Nguoi &x)
 		lst.tail = newNode;
 	}
 }
+//nhap du lieu cho 1 nguoi
 void Nhap1nguoi(N &a)
 {	
         printf("\nNhap the he: \n");
@@ -200,6 +205,7 @@ void Nhap1nguoi(N &a)
         
 }
 
+//nhap du lieu cho gia pha
 void NhapDuLlieu(LinkedList &lst)
 {
 	int n;
@@ -214,6 +220,7 @@ void NhapDuLlieu(LinkedList &lst)
 	}
 }
 
+//kiem tra nguoi do co trong gia pha khong
 int Kiemtra(LinkedList &lst,int t,char ten[])
 {
 	if(IsEmpty(lst)==true)
@@ -236,6 +243,7 @@ int Kiemtra(LinkedList &lst,int t,char ten[])
 	}
 }
 
+//xuat nhung nguoi cung the he va con chau cua nguoi do
 void XuatConChauTH(LinkedList &lst,int t)
 {
 	if(IsEmpty(lst)==true)
@@ -257,6 +265,7 @@ void XuatConChauTH(LinkedList &lst,int t)
 	}
 }
 
+//tim vi tri cua 1 nguoi trong gia pha
 int VitriCuaNguoi(LinkedList lst,Node *NodeTim)
 {
 	Node *newNode= lst.head;
@@ -271,6 +280,7 @@ int VitriCuaNguoi(LinkedList lst,Node *NodeTim)
 
 }
 
+//tim nguoi o 1 vi tri nao do
 Node* TraNguoiOViTri(LinkedList lst,int i)
 {
 	Node *newNode = lst.head;
@@ -288,29 +298,51 @@ int main()
 	LinkedList lst;
 	CreateList(lst);	
 	NhapDuLlieu(lst);
-	int soluong = count(lst);
-	printf("\nSo luong nguoi trong List: %d",soluong);
-	XuatGiaPha(lst);
-	// char x[40];
-	// printf("\nNhap vao ten 1 nguoi: ");
-	// fflush(stdin);
-	// gets(x);
-	// int namsinh;
-	// printf("\nNhap nam sinh: ");
-	// scanf("%d",&namsinh);
-	// int th;
-	// printf("\nNhap vao the he: ");
-	// scanf("%d",&th);
-	// if(Kiemtra(lst,namsinh,x) == -1)
-	// 	printf("\nKhong co nguoi ay trong gia pha !");
-	// else
-	// {
-	// 	XuatConChauTH(lst,th);
-	// }
-
-	N nguoicuoi;	
-	Nhap1nguoi(nguoicuoi);
-	InsertNodeLast(lst,nguoicuoi);
-	XuatGiaPha(lst);
-	SapXepTheoTheHe(lst);
+	int select;
+	do
+	{
+		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Dem so nguoi trong gia pha\n0 - Thoat\nMoi ban chon chuc nang: ");
+		scanf("%d",&select);
+		switch (select)
+    {
+    case 1:
+        XuatGiaPha(lst);
+        break;
+    case 2:
+		char x[40];
+		printf("\nNhap vao ten 1 nguoi: ");
+		fflush(stdin);
+		gets(x);
+		int namsinh;
+		printf("\nNhap nam sinh: ");
+		scanf("%d",&namsinh);
+        if(Kiemtra(lst,namsinh,x)!=-1)
+			printf("\nCo %s trong gia pha",x);
+		else	
+			printf("\nkhong Co %s trong gia pha",x);
+        break;
+    case 3:
+        char d[40];
+		printf("\nNhap vao ten 1 nguoi: ");
+		fflush(stdin);
+		gets(d);
+		int n;
+		printf("\nNhap nam sinh: ");
+		scanf("%d",&n);
+		int th;
+		printf("\nNhap vao the he: ");
+		scanf("%d",&th);
+		if(Kiemtra(lst,n,d) == -1)
+			printf("\nKhong co nguoi ay trong gia pha !");
+		else
+		{
+			XuatConChauTH(lst,th);
+		}
+        break;
+	case 4:
+		int soluong = count(lst);
+		printf("\nSo luong nguoi trong Gia Pha: %d",soluong);
+		break;
+    }
+	} while (select!=0);		
 }
