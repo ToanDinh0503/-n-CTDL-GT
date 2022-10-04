@@ -223,12 +223,12 @@ void NhapDuLlieu(LinkedList &lst)
 
     f = fopen("input.bin","rb");
 	printf("Nhap so luong nguoi trong gia pha: ");
-	scanf("%d",&n);
+	fread(&n,sizeof(n),1,f);
 	for(int i=0;i<n;i++)
 	{
 		N x;
 		printf("Nhap thong tin Nguoi can them:");
-		Nhap1nguoi(x);
+		fread(&x,sizeof(x),1,f);
 		InsertNodeLast(lst,x);
 		//InsertNodeFirst(lst,x);
 	}
