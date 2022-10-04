@@ -207,12 +207,31 @@ void Nhap1nguoi(N &a)
         scanf("%d",&a.socon);
         
 }
-
+void taoFileNhiPhan(LinkedList &lst)
+{
+	int n;
+    FILE *f;
+	N x;
+    f = fopen("input.bin","wb+");
+	printf("Nhap so luong nguoi trong gia pha: ");
+	scanf("%d",&n);
+  	fwrite(&n,1,sizeof(n) , f);
+    
+	for(int i=0;i<n;i++)
+	{
+		N x;
+		printf("Nhap thong tin Nguoi can them:");
+		Nhap1nguoi(x);
+        fwrite(&x,1,sizeof(x) , f);
+	}
+    fclose(f);
+}
 //nhap du lieu cho gia pha
 void NhapDuLlieu(LinkedList &lst)
 {
 	int n;
     FILE *f;
+
     f = fopen("input.bin","rb");
 	printf("Nhap so luong nguoi trong gia pha: ");
 	// scanf("%d",&n);
@@ -302,14 +321,17 @@ Node* TraNguoiOViTri(LinkedList lst,int i) // chua
 	return newNode;
 }
 
+
 int main()
 {
 	LinkedList lst;
 	CreateList(lst);	
+	// taoFileNhiPhan(lst);
 	NhapDuLlieu(lst);
 	int select;
 	do
 	{
+		printf("\n------------MENU------------");
 		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa gia pha \n5 - Dem so nguoi trong gia pha\n0 - Thoat\nMoi ban chon chuc nang: ");
 		scanf("%d",&select);
 		switch (select)
@@ -357,5 +379,5 @@ int main()
 		break;
 
     }
-	} while (select <= 0 && select >= 5);		
+	} while (select >= 0 && select <= 5);		
 }
