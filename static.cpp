@@ -96,6 +96,7 @@ void XoaGiaPha(LinkedList &lst)
 		lst.head = lst.head->next;
 		delete newNode;
 	}
+	printf("\nDa Xoa Gia Pha thanh cong !!");
 }
 
 void SapXepTheoTheHe(LinkedList &lst)
@@ -254,7 +255,7 @@ void XuatConChauTH(LinkedList &lst,int t)
 	{
 		Node *newNode = new Node();
 		newNode = lst.head;
-		printf("\n-------------Danh Sach Nguoi Trong Gia Pha--------------\n");
+		printf("\n------------Danh Sach Nguoi Trong Gia Pha------------\n");
 		printf("%5s %10s %10s %10s %10s %10s %5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
@@ -301,48 +302,58 @@ int main()
 	int select;
 	do
 	{
-		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Dem so nguoi trong gia pha\n0 - Thoat\nMoi ban chon chuc nang: ");
+		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa Gia Pha\n5 - Sap Xep Gia Pha theo the he\n6 - Dem so nguoi trong gia pha\n0 - Thoat");
+		printf("\nMoi ban chon chuc nang: ");
 		scanf("%d",&select);
 		switch (select)
-    {
-    case 1:
-        XuatGiaPha(lst);
-        break;
-    case 2:
-		char x[40];
-		printf("\nNhap vao ten 1 nguoi: ");
-		fflush(stdin);
-		gets(x);
-		int namsinh;
-		printf("\nNhap nam sinh: ");
-		scanf("%d",&namsinh);
-        if(Kiemtra(lst,namsinh,x)!=-1)
-			printf("\nCo %s trong gia pha",x);
-		else	
-			printf("\nkhong Co %s trong gia pha",x);
-        break;
-    case 3:
-        char d[40];
-		printf("\nNhap vao ten 1 nguoi: ");
-		fflush(stdin);
-		gets(d);
-		int n;
-		printf("\nNhap nam sinh: ");
-		scanf("%d",&n);
-		int th;
-		printf("\nNhap vao the he: ");
-		scanf("%d",&th);
-		if(Kiemtra(lst,n,d) == -1)
-			printf("\nKhong co nguoi ay trong gia pha !");
-		else
-		{
-			XuatConChauTH(lst,th);
-		}
-        break;
-	case 4:
-		int soluong = count(lst);
-		printf("\nSo luong nguoi trong Gia Pha: %d",soluong);
-		break;
-    }
-	} while (select!=0);		
+    	{
+    		case 1:
+        		XuatGiaPha(lst);
+       			break;
+   			case 2:
+				char x[40];
+				printf("\nNhap vao ten 1 nguoi: ");
+				fflush(stdin);
+				gets(x);
+				int namsinh;
+				printf("\nNhap nam sinh: ");
+				scanf("%d",&namsinh);
+        		if(Kiemtra(lst,namsinh,x)!=-1)
+					printf("\nCo %s trong gia pha",x);
+				else	
+				printf("\nkhong Co %s trong gia pha",x);
+        		break;
+   			 case 3:
+        		char d[40];
+				printf("\nNhap vao ten 1 nguoi: ");
+				fflush(stdin);
+				gets(d);
+				int n;
+				printf("\nNhap nam sinh: ");
+				scanf("%d",&n);
+				int th;
+				printf("\nNhap vao the he: ");
+				scanf("%d",&th);
+				if(Kiemtra(lst,n,d) == -1)
+					printf("\nKhong co nguoi ay trong gia pha !");
+				else
+				{
+					XuatConChauTH(lst,th);
+				}	
+        		break;
+			case 4:
+				XoaGiaPha(lst);
+				break;
+			case 5:
+				SapXepTheoTheHe(lst);
+				printf("\n------------Gia Pha Sau khi sap xep theo the he------------\n");
+				XuatGiaPha(lst);
+				break;
+			case 6:
+				int soluong = count(lst);
+				printf("\nSo luong nguoi trong Gia Pha: %d",soluong);
+				break;
+   		 }
+	} while (select!=0);	
+	return 0;	
 }
