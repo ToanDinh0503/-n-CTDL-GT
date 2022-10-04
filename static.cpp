@@ -129,7 +129,10 @@ void XuatGiaPha(LinkedList lst)
 		printf("%5s %10s %10s %10s %10s %10s %5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
-			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d"
+			,newNode->data.thehe,newNode->data.hoten,newNode->data.ba,
+			newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,
+			newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -209,15 +212,21 @@ void Nhap1nguoi(N &a)
 void NhapDuLlieu(LinkedList &lst)
 {
 	int n;
+    FILE *f;
+    f = fopen("input.bin","rb");
 	printf("Nhap so luong nguoi trong gia pha: ");
-	scanf("%d",&n);
+	// scanf("%d",&n);
+    fread(&n,sizeof(n),1,f);
+    
 	for(int i=0;i<n;i++)
 	{
 		N x;
 		printf("Nhap thong tin Nguoi can them:");
-		Nhap1nguoi(x);
+		// Nhap1nguoi(x);
+        fread(&x,sizeof(x), 1, f);
 		InsertNodeFirst(lst,x);
 	}
+    fclose(f);
 }
 
 //kiem tra nguoi do co trong gia pha khong
@@ -266,7 +275,7 @@ void XuatConChauTH(LinkedList &lst,int t)
 }
 
 //tim vi tri cua 1 nguoi trong gia pha
-int VitriCuaNguoi(LinkedList lst,Node *NodeTim)
+int VitriCuaNguoi(LinkedList lst,Node *NodeTim) //chua
 {
 	Node *newNode= lst.head;
 	int vt=0;
@@ -281,7 +290,7 @@ int VitriCuaNguoi(LinkedList lst,Node *NodeTim)
 }
 
 //tim nguoi o 1 vi tri nao do
-Node* TraNguoiOViTri(LinkedList lst,int i)
+Node* TraNguoiOViTri(LinkedList lst,int i) // chua
 {
 	Node *newNode = lst.head;
 	int vt=0;
@@ -301,7 +310,7 @@ int main()
 	int select;
 	do
 	{
-		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Dem so nguoi trong gia pha\n0 - Thoat\nMoi ban chon chuc nang: ");
+		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa gia pha \n5 - Dem so nguoi trong gia pha\n0 - Thoat\nMoi ban chon chuc nang: ");
 		scanf("%d",&select);
 		switch (select)
     {
@@ -340,9 +349,13 @@ int main()
 		}
         break;
 	case 4:
-		int soluong = count(lst);
-		printf("\nSo luong nguoi trong Gia Pha: %d",soluong);
+		XoaGiaPha(lst);
 		break;
+	case 5:
+		int sl = count(lst);
+		printf("\nSo luong nguoi trong Gia Pha: %d",sl);
+		break;
+
     }
-	} while (select!=0);		
+	} while (select <= 0 && select >= 5);		
 }
