@@ -71,21 +71,6 @@ void XoaNodeDau(LinkedList &lst)
 
 }
 
-void XoaSauNode(Node *p)
-{
-	Node *newNode;
-	if(p==NULL || p->next ==NULL)
-	{
-		printf("\nKhong the xoa ");
-	}
-	else
-	{
-		newNode = p->next;
-		p->next = newNode->next;
-		delete newNode;
-	}	
-}
-
 
 void XoaGiaPha(LinkedList &lst)
 {
@@ -96,6 +81,7 @@ void XoaGiaPha(LinkedList &lst)
 		lst.head = lst.head->next;
 		delete newNode;
 	}
+	printf("\nDa Xoa Gia Pha thanh cong !!");
 }
 
 void SapXepTheoTheHe(LinkedList &lst)
@@ -115,6 +101,12 @@ void SapXepTheoTheHe(LinkedList &lst)
 	}
 }
 
+void Xuat1Nguoi(Node *newNode)
+{
+	printf("%5s |%10s |%10s |%10s |%10s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+	printf("\n%5d |%10s |%10s |%10s |%10s |%d/%d/%d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+}
+
 void XuatGiaPha(LinkedList lst)
 {
 	if(IsEmpty(lst)==true)
@@ -129,10 +121,7 @@ void XuatGiaPha(LinkedList lst)
 		printf("%5s %10s %10s %10s %10s %10s %5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
-			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d"
-			,newNode->data.thehe,newNode->data.hoten,newNode->data.ba,
-			newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,
-			newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -234,18 +223,15 @@ void NhapDuLlieu(LinkedList &lst)
 
     f = fopen("input.bin","rb");
 	printf("Nhap so luong nguoi trong gia pha: ");
-	// scanf("%d",&n);
-    fread(&n,sizeof(n),1,f);
-    
+	scanf("%d",&n);
 	for(int i=0;i<n;i++)
 	{
 		N x;
 		printf("Nhap thong tin Nguoi can them:");
-		// Nhap1nguoi(x);
-        fread(&x,sizeof(x), 1, f);
-		InsertNodeFirst(lst,x);
+		Nhap1nguoi(x);
+		InsertNodeLast(lst,x);
+		//InsertNodeFirst(lst,x);
 	}
-    fclose(f);
 }
 
 //kiem tra nguoi do co trong gia pha khong
@@ -282,19 +268,19 @@ void XuatConChauTH(LinkedList &lst,int t)
 	{
 		Node *newNode = new Node();
 		newNode = lst.head;
-		printf("\n-------------Danh Sach Nguoi Trong Gia Pha--------------\n");
-		printf("%5s %10s %10s %10s %10s %10s %5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+		printf("\n------------Danh Sach Nguoi Trong Gia Pha------------\n");
+		printf("%5s |%10s |%10s |%10s |%10s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
 			if(newNode->data.thehe>=t)
-			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d |%10s |%10s |%10s |%10s |%d/%d/%d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
 }
 
 //tim vi tri cua 1 nguoi trong gia pha
-int VitriCuaNguoi(LinkedList lst,Node *NodeTim) //chua
+int VitriCuaNguoi(LinkedList lst,Node *NodeTim)
 {
 	Node *newNode= lst.head;
 	int vt=0;
@@ -309,16 +295,45 @@ int VitriCuaNguoi(LinkedList lst,Node *NodeTim) //chua
 }
 
 //tim nguoi o 1 vi tri nao do
-Node* TraNguoiOViTri(LinkedList lst,int i) // chua
+Node* TraNguoiOViTri(LinkedList lst,int i)
 {
 	Node *newNode = lst.head;
 	int vt=0;
-	while(newNode!=NULL && vt<i)
+	while(newNode!=NULL && vt!=i)
 	{
 		newNode= newNode->next;
 		vt++;
 	}
 	return newNode;
+}
+
+
+void InsertNodeMid(LinkedList &lst, int pos, N d){
+  if(pos < 0 || pos >= count(lst)){
+    printf("\nKhong the chen");
+    return;
+  }
+  if(pos == 0){
+    InsertNodeFirst(lst, d);
+  }
+  else if(pos == count(lst)-1){
+    InsertNodeLast(lst, d);
+  }
+  else{
+    Node *newNode = CreateNode(d);
+    Node *current = lst.head;
+    Node *pre = NULL;
+    int i = 0;
+    while(current != NULL){
+      if(i == pos)
+      	break;
+      pre = current;
+      current = current->next;
+      i++;
+    }
+    pre->next=newNode;
+    newNode->next=current;
+  }
 }
 
 
@@ -331,6 +346,7 @@ int main()
 	int select;
 	do
 	{
+
 		printf("\n------------MENU------------");
 		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa gia pha \n5 - Dem so nguoi trong gia pha\n0 - Thoat\nMoi ban chon chuc nang: ");
 		scanf("%d",&select);
@@ -379,5 +395,6 @@ int main()
 		break;
 
     }
-	} while (select >= 0 && select <= 5);		
-}//
+} while (select >= 0 && select <= 5);	
+}	
+
