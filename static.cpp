@@ -71,21 +71,6 @@ void XoaNodeDau(LinkedList &lst)
 
 }
 
-void XoaSauNode(Node *p)
-{
-	Node *newNode;
-	if(p==NULL || p->next ==NULL)
-	{
-		printf("\nKhong the xoa ");
-	}
-	else
-	{
-		newNode = p->next;
-		p->next = newNode->next;
-		delete newNode;
-	}	
-}
-
 
 void XoaGiaPha(LinkedList &lst)
 {
@@ -223,7 +208,8 @@ void NhapDuLlieu(LinkedList &lst)
 		N x;
 		printf("Nhap thong tin Nguoi can them:");
 		Nhap1nguoi(x);
-		InsertNodeFirst(lst,x);
+		InsertNodeLast(lst,x);
+		//InsertNodeFirst(lst,x);
 	}
 }
 
@@ -300,6 +286,34 @@ Node* TraNguoiOViTri(LinkedList lst,int i)
 	return newNode;
 }
 
+void InsertNodeMid(LinkedList &lst, int pos, N d){
+  if(pos < 0 || pos >= count(lst)){
+    printf("\nKhong the chen");
+    return;
+  }
+  if(pos == 0){
+    InsertNodeFirst(lst, d);
+  }
+  else if(pos == count(lst)-1){
+    InsertNodeLast(lst, d);
+  }
+  else{
+    Node *newNode = CreateNode(d);
+    Node *current = lst.head;
+    Node *pre = NULL;
+    int i = 0;
+    while(current != NULL){
+      if(i == pos)
+      	break;
+      pre = current;
+      current = current->next;
+      i++;
+    }
+    pre->next=newNode;
+    newNode->next=current;
+  }
+}
+
 int main()
 {
 	LinkedList lst;
@@ -309,7 +323,8 @@ int main()
 	do
 	{
 		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa Gia Pha");
-		printf("\n5 - Sap Xep Gia Pha theo the he\n6 - Dem so nguoi trong gia pha\n0 - Thoat");
+		printf("\n5 - Sap Xep Gia Pha theo the he\n6 - Xuat Nguoi o 1 vi tri trong gia pha\n7 - Xoa Nguoi Dau Gia Pha\n8 - Them Nguoi vao cuoi Gia Pha");
+		printf("\n9 - Them Nguoi Giua Gia Pha \n10 - Dem so nguoi trong gia pha\n0 - Thoat");
 		printf("\nMoi ban chon chuc nang: ");
 		scanf("%d",&select);
 		switch (select)
@@ -363,8 +378,30 @@ int main()
 				Xuat1Nguoi(TraNguoiOViTri(lst,vt));
 				break;
 			case 7:
+				XoaNodeDau(lst);
+				printf("\n------------Gia Pha Sau khi Xoa------------\n");
+				XuatGiaPha(lst);
+				break;
+			case 8:
+				N t;
+				printf("Nhap thong tin Nguoi can them:");
+				Nhap1nguoi(t);
+				InsertNodeLast(lst,t);
+				printf("\nThem thanh cong !!");
+				break;
+			case 9:
+				N u;
+				printf("Nhap thong tin Nguoi can them:");
+				Nhap1nguoi(u);
+				int pos;
+				printf("\nVui long nhap vi tri(0 -> songuoi-1): ");
+				scanf("%d",&pos);
+				InsertNodeMid(lst,pos,u);
+				break;
+			case 10:
 				printf("\nSo luong nguoi trong Gia Pha: %d",count(lst));
 				break;
+			
    		 }
 	} while (select!=0);	
 	return 0;	
