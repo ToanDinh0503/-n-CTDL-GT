@@ -116,6 +116,12 @@ void SapXepTheoTheHe(LinkedList &lst)
 	}
 }
 
+void Xuat1Nguoi(Node *newNode)
+{
+	printf("%5s |%10s |%10s |%10s |%10s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+	printf("\n%5d |%10s |%10s |%10s |%10s |%d/%d/%d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+}
+
 void XuatGiaPha(LinkedList lst)
 {
 	if(IsEmpty(lst)==true)
@@ -256,11 +262,11 @@ void XuatConChauTH(LinkedList &lst,int t)
 		Node *newNode = new Node();
 		newNode = lst.head;
 		printf("\n------------Danh Sach Nguoi Trong Gia Pha------------\n");
-		printf("%5s %10s %10s %10s %10s %10s %5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+		printf("%5s |%10s |%10s |%10s |%10s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
 			if(newNode->data.thehe>=t)
-			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d |%10s |%10s |%10s |%10s |%d/%d/%d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -286,7 +292,7 @@ Node* TraNguoiOViTri(LinkedList lst,int i)
 {
 	Node *newNode = lst.head;
 	int vt=0;
-	while(newNode!=NULL && vt<i)
+	while(newNode!=NULL && vt!=i)
 	{
 		newNode= newNode->next;
 		vt++;
@@ -302,7 +308,8 @@ int main()
 	int select;
 	do
 	{
-		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa Gia Pha\n5 - Sap Xep Gia Pha theo the he\n6 - Dem so nguoi trong gia pha\n0 - Thoat");
+		printf("\n1 - Xuat Gia Pha\n2 - Tim nguoi trong gia pha\n3 - Xuat ra con chau va nguoi cung the he\n4 - Xoa Gia Pha");
+		printf("\n5 - Sap Xep Gia Pha theo the he\n6 - Dem so nguoi trong gia pha\n0 - Thoat");
 		printf("\nMoi ban chon chuc nang: ");
 		scanf("%d",&select);
 		switch (select)
@@ -350,8 +357,13 @@ int main()
 				XuatGiaPha(lst);
 				break;
 			case 6:
-				int soluong = count(lst);
-				printf("\nSo luong nguoi trong Gia Pha: %d",soluong);
+				int vt;
+				printf("\nVui long nhap vi tri(0 -> songuoi-1): ");
+				scanf("%d",&vt);
+				Xuat1Nguoi(TraNguoiOViTri(lst,vt));
+				break;
+			case 7:
+				printf("\nSo luong nguoi trong Gia Pha: %d",count(lst));
 				break;
    		 }
 	} while (select!=0);	
