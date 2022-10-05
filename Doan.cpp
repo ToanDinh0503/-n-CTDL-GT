@@ -333,8 +333,6 @@ int main()
 {
 	LinkedList lst;
 	CreateList(lst);
-	Nguoi songuoi[100];
-	int n;
     GhiFileBin();
 	DocDuLlieu(lst);
 	int select;
