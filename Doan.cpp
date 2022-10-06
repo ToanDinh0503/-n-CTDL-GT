@@ -94,8 +94,8 @@ void SapXepTheoTheHe(LinkedList &lst)
 }
 void Xuat1Nguoi(Node *newNode)
 {
-	printf("%5s |%10s |%10s |%10s |%10s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
-	printf("\n%5d |%10s |%10s |%10s |%10s |%d/%d/%d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+	printf("%5s|%30s |%30s |%30s |%30s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+	printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 }
 void XuatGiaPha(LinkedList lst)
 {
@@ -107,11 +107,11 @@ void XuatGiaPha(LinkedList lst)
 	{
 		Node *newNode = new Node();
 		newNode = lst.head;
-		printf("\n-------Danh Sach Nguoi Trong Gia Pha--------\n");
-		printf("%5s %10s %10s %10s %10s %10s %5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+		printf("\n---------------------------------------------------------Danh Sach Nguoi Trong Gia Pha-------------------------------------------------------------------\n");
+		printf("%5s|%30s |%30s |%30s |%30s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
-			printf("\n%5d %10s %10s %10s %10s %d/%d/%d %5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -263,12 +263,12 @@ void XuatConChauTH(LinkedList &lst,int t)
 	{
 		Node *newNode = new Node();
 		newNode = lst.head;
-		printf("\n------------Danh Sach Nguoi Trong Gia Pha------------\n");
-		printf("%5s |%10s |%10s |%10s |%10s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
+		printf("\n---------------------------------------------------------Danh Sach Nguoi Trong Gia Pha-------------------------------------------------------------------\n");
+		printf("%5s|%30s |%30s |%30s |%30s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
 			if(newNode->data.thehe>=t)
-			printf("\n%5d |%10s |%10s |%10s |%10s |%d/%d/%d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -333,7 +333,7 @@ int main()
 {
 	LinkedList lst;
 	CreateList(lst);
-    GhiFileBin();
+   // GhiFileBin();
 	DocDuLlieu(lst);
 	int select;
 	do
