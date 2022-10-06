@@ -111,7 +111,9 @@ void XuatGiaPha(LinkedList lst)
 		printf("%5s|%30s |%30s |%30s |%30s |%10s |%5s","The He","Ho Ten","Ba","Me","Vo/Chong","Nam Sinh","So Con");
 		while(newNode !=NULL)
 		{
-			printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",
+			newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,
+			newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -230,6 +232,23 @@ void DocDuLlieu(LinkedList &lst)
     fclose(doc);
 }
 
+//Luu danh sach vao file dulieu.dat
+
+void LuuFile(LinkedList &lst)
+{
+    FILE *luu;
+    luu = fopen("dulieu.dat","wb+");
+	int n = count(lst);
+	fwrite(&n,sizeof(int),1,luu);
+	Node* temp = lst.head;
+	while(temp != NULL)
+	{
+		fwrite(&temp->data,sizeof(N),1,luu);
+		temp = temp->next;
+	}
+
+	fclose(luu);
+}
 //kiem tra nguoi do co trong gia pha khong
 int Kiemtra(LinkedList &lst,int t,char ten[])
 {
@@ -268,7 +287,10 @@ void XuatConChauTH(LinkedList &lst,int t)
 		while(newNode !=NULL)
 		{
 			if(newNode->data.thehe>=t)
-			printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",newNode->data.thehe,newNode->data.hoten,newNode->data.ba,newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
+			printf("\n%5d |%30s |%30s |%30s |%30s |%2d/%2d/%2d |%5d",
+			newNode->data.thehe,newNode->data.hoten,newNode->data.ba,
+			newNode->data.me,newNode->data.vc,newNode->data.ngaysinh.ngay,
+			newNode->data.ngaysinh.thang,newNode->data.ngaysinh.nam,newNode->data.socon);
 			newNode = newNode->next;
 		}	
 	}
@@ -301,6 +323,7 @@ Node* TraNguoiOViTri(LinkedList lst,int i)
 	return newNode;
 }
 
+//chen vao vi tri 
 void InsertNodeMid(LinkedList &lst, int pos, N d){
   if(pos < 0 || pos >= count(lst)){
     printf("\nKhong the chen");
@@ -415,7 +438,8 @@ int main()
 				InsertNodeMid(lst,pos,u);
 				break;
 			case 10:
-				
+				LuuFile(lst);
+				break;
 			case 11:
 				printf("\nSo luong nguoi trong Gia Pha: %d",count(lst));
 				break;
